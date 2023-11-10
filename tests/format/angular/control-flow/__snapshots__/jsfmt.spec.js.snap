@@ -128,6 +128,19 @@ printWidth: 80
 <span>Placeholder (hover it, then click on it!)</span>
 }
 
+<div #greeting>Hello!</div>
+
+@defer (on viewport(greeting)) {
+<greetings-cmp />
+}
+
+
+@defer {
+<large-component />
+} @loading (after 1000ms; minimum 1000ms) {
+<img alt="loading..." src="loading.gif" />
+}
+
 =====================================output=====================================
 @defer (when isCheckedDefer()) {
   <app-c1 />
@@ -139,13 +152,13 @@ printWidth: 80
   <span>Loading...</span>
 }
 
-@defer (on interaction) {
+@defer () {
   <span>Clicked</span>
 } @placeholder {
   <span>Placeholder (click on it!)</span>
 }
 
-@defer (on hover) {
+@defer () {
   <span>Hovered</span>
 } @placeholder {
   <span>Placeholder (hover it!)</span>
@@ -163,22 +176,34 @@ printWidth: 80
   <span>Placeholder</span>
 }
 
-@defer (on viewport) {
+@defer () {
   <app-c2 text="The block entered the viewport" />
 } @placeholder {
   <span>Placeholder</span>
 }
 
-@defer (on interaction; prefetch on hover) {
+@defer () {
   <app-c3 />
 } @placeholder {
   <span>Placeholder (hover it, then click on it!)</span>
 }
 
-@defer (on interaction; prefetch on hover) {
+@defer () {
   <app-c3 />
 } @placeholder {
   <span>Placeholder (hover it, then click on it!)</span>
+}
+
+<div #greeting>Hello!</div>
+
+@defer (on viewport(greeting)) {
+  <greetings-cmp />
+}
+
+@defer {
+  <large-component />
+} @loading (after 1s; minimum 1s) {
+  <img alt="loading..." src="loading.gif" />
 }
 
 ================================================================================
@@ -191,6 +216,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <ul>
+  <!-- Keep original parameters because of syntax error -->
 @for (
             let
 
@@ -217,7 +243,7 @@ i;
 
 
 <ul>
-@for (item of collection; track item.id; let index = $index, first = $first; let last = $last, even = $even, odd = $odd; let count = $count) {
+@for (item of collection; track item.id; let index=$index,first=$first,last=$last,even=$even,odd=$odd,count=$count) {
 
 <li><strong>{{item.name}}</strong> index={{index}} first={{first}} last={{last}} even={{even}} odd={{odd}} count={{count}}</li>
 
@@ -242,7 +268,12 @@ item of
 
 =====================================output=====================================
 <ul>
-  @for (let item of items; index as i; trackBy: trackByFn) {
+  <!-- Keep original parameters because of syntax error -->
+  @for (let
+
+            item of items; index as
+i; trackBy: trackByFn
+) {
     <li>
       <strong>{{ item.name }}</strong>
     </li>
@@ -254,13 +285,8 @@ item of
 <li *ngFor="let item of items; index as i; trackBy: trackByFn"></li>
 
 <ul>
-  @for (
-    item of collection;
-    track item.id;
-    let index = $index, first = $first;
-    let last = $last, even = $even, odd = $odd;
-    let count = $count
-  ) {
+  @for (item of collection; track item.id;
+  let index = $index, first = $first, last = $last, even = $even, odd = $odd, count = $count) {
     <li>
       <strong>{{ item.name }}</strong> index={{ index }} first={{
         first
@@ -308,8 +334,9 @@ printWidth: 80
 }
 </div>
 
+<!-- "as" expression is only allowed on the primary @if block, so as user2 will be deleted -->
 @if (users$   |   async;   as   users) { {{   users.length   }} }
-@else if (users$   |   async;   as   users) { {{   users.length   }} }
+@else if (users2$   |   async;   as   users2) { {{   users.length   }} }
 
 <div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
 
@@ -341,9 +368,10 @@ printWidth: 80
   }
 </div>
 
-@if (users$ | async; as: users) {
+<!-- "as" expression is only allowed on the primary @if block, so as user2 will be deleted -->
+@if (users$ | async; as users) {
   {{ users.length }}
-} @else if (users$ | async; as: users) {
+} @else if (users2$ | async) {
   {{ users.length }}
 }
 

@@ -1,22 +1,19 @@
 import { formatAttributeValue } from "./utils.js";
+import { expandAngularRender3Node } from "./angular-expand-render3-block-node.js";
+import parseParameterDocs from "./angular-control-flow-block-parameters-convert.js";
 
 async function printAngularControlFlowBlockParameters(
   textToDoc,
   print,
   path,
-  /* options,*/
+  options,
 ) {
-  const { node } = path;
-  const code = node.parameters.map(({ expression }) => expression).join("; ");
+  const { node, parent } = path;
 
-  const doc = await formatAttributeValue(code, textToDoc, {
-    parser: "__ng_directive",
-    __isInHtmlAttribute: false,
-    trailingComma: "none",
-  });
-
-  // We have to put the doc on the node, since `node.parameters` is not a valid "node"
-  node.__embed_parameters_doc = doc;
+  try {
+    const doc = await parseParameterDocs(node, options);
+    node.__embed_parameters_doc = doc;
+  } catch (error) {}
 }
 
 export default printAngularControlFlowBlockParameters;

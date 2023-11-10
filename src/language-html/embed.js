@@ -137,10 +137,18 @@ function embed(path, options) {
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
 
-    // TODO: This should work on `blockParameter`, but currently we don't have a parser for it.
     case "block":
       if (
-        !["if", "else if", "for", "switch", "case"].includes(node.name) ||
+        ![
+          "if",
+          "else if",
+          "for",
+          "switch",
+          "case",
+          "loading",
+          "placeholder",
+          "defer",
+        ].includes(node.name) ||
         node.parameters.length === 0
       ) {
         return;

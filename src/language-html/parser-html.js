@@ -18,7 +18,7 @@ import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locStart, locEnd } from "./loc.js";
-import { mergeBlockR3Node } from "./merge-block-r3-node.js";
+import { expandAngularRender3Node } from "./embed/angular-expand-render3-block-node.js";
 
 /**
  * @typedef {import('angular-html-parser')} AngularHtmlParser
@@ -238,7 +238,7 @@ function ngHtmlParser(input, parseOptions, options) {
     }
   };
 
-  mergeBlockR3Node({ children: rootNodes });
+  expandAngularRender3Node({ children: rootNodes });
 
   visitAll(
     new (class extends RecursiveVisitor {
@@ -248,7 +248,7 @@ function ngHtmlParser(input, parseOptions, options) {
         normalizeName(node);
         fixSourceSpan(node);
         normalizeAngularControlFlowBlockName(node);
-        mergeBlockR3Node(node);
+        expandAngularRender3Node(node);
       }
     })(),
     rootNodes,

@@ -11,8 +11,9 @@
 }
 </div>
 
+<!-- "as" expression is only allowed on the primary @if block, so as user2 will be deleted -->
 @if (users$   |   async;   as   users) { {{   users.length   }} }
-@else if (users$   |   async;   as   users) { {{   users.length   }} }
+@else if (users2$   |   async;   as   users2) { {{   users.length   }} }
 
 <div *ngIf="users$   |   async;   as   users">{{   users.length   }}</div>
 
