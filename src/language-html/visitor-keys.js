@@ -12,7 +12,7 @@ const visitorKeys = {
   attribute: [],
   cdata: [],
   block: ["children", "parameters"],
-  blockParameter: [],
+  blockParameter: ["expression"],
 };
 
 export default visitorKeys;

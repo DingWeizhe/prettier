@@ -66,3 +66,16 @@
 @placeholder {
 <span>Placeholder (hover it, then click on it!)</span>
 }
+
+<div #greeting>Hello!</div>
+
+@defer (on viewport(greeting)) {
+  <greetings-cmp />
+}
+
+
+@defer {
+<large-component />
+} @loading (after 1000ms; minimum 1000ms) {
+<img alt="loading..." src="loading.gif" />
+}
