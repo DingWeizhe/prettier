@@ -272,8 +272,7 @@ item of
   @for (let
 
             item of items; index as
-i; trackBy: trackByFn
-) {
+i; trackBy: trackByFn) {
     <li>
       <strong>{{ item.name }}</strong>
     </li>
@@ -349,6 +348,12 @@ printWidth: 80
 @if      (foo(     "quotes")) {}
 @else if (foo(     'quotes')) {}
 
+
+@if (widthCategory !== undefined &&
+widthCategory > topStartToSideStartMaxSize) {
+<app-component />
+}
+
 =====================================output=====================================
 <h3>&#64;if and &#64;else</h3>
 <div>
@@ -384,6 +389,11 @@ printWidth: 80
 
 @if (foo("quotes")) {
 } @else if (foo("quotes")) {}
+
+@if (widthCategory !== undefined &&
+  widthCategory > topStartToSideStartMaxSize) {
+  <app-component />
+}
 
 ================================================================================
 `;
