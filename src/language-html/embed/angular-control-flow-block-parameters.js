@@ -24,7 +24,6 @@ async function printAngularControlFlowBlockParameters(
     const parser = fetchParamentParser(node);
     node.__embed_parameters_doc = await parser(node);
   } catch (error) {
-    console.log(error);
     // ignore, use plainText
   }
 
