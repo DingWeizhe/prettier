@@ -59,7 +59,19 @@ const ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS = new Map(
   ]),
 );
 
+export const ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS = new Set([
+  "if",
+  "else if",
+  "for",
+  "switch",
+  "case",
+  "loading",
+  "placeholder",
+  "defer",
+]);
+
 export default {
   DEFAULT_ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
   ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS,
+  ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS,
 };

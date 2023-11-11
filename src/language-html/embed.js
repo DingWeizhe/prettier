@@ -24,6 +24,7 @@ import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-scr
 import getNodeContent from "./get-node-content.js";
 import printAttribute from "./embed/attribute.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
+import { ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS } from "./print/angular-control-flow-block-settings.evaluate.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -139,16 +140,7 @@ function embed(path, options) {
 
     case "block":
       if (
-        ![
-          "if",
-          "else if",
-          "for",
-          "switch",
-          "case",
-          "loading",
-          "placeholder",
-          "defer",
-        ].includes(node.name) ||
+        !ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS.has(node.name) ||
         node.parameters.length === 0
       ) {
         return;

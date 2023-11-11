@@ -1,4 +1,5 @@
 import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import { ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS } from "./print/angular-control-flow-block-settings.evaluate.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -32,9 +33,7 @@ function clean(ast, newNode) {
 
   if (ast.type === "block") {
     // Block names that can have parameters
-    const isEmbed = ["if", "else if", "for", "switch", "case"].includes(
-      ast.name,
-    );
+    const isEmbed = ANGULAR_CONTROL_FLOW_BLOCK_WITH_PARAMETERS.has(ast.name);
     for (const parameter of newNode.parameters) {
       if (isEmbed) {
         delete parameter.expression;
